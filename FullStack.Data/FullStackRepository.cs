@@ -41,10 +41,7 @@ namespace FullStack.Data
         public User CreateUser(User user)
         {
             //throw new NotImplementedException();
-            //if (_ctx.Users.Any(x => x.Email == user.Email))
-            //{
-            //    throw new AppException("Email \"" + user.Email + "\" already exists");
-            //}
+
             _ctx.Users.Add(user);
             _ctx.SaveChanges();
             return user;
@@ -71,7 +68,6 @@ namespace FullStack.Data
             var entity = _ctx.Users.Find(id);
             _ctx.Users.Remove(entity);
             _ctx.SaveChanges();
-        }
-
+        }   
     }
 }

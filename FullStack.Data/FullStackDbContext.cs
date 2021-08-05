@@ -22,7 +22,7 @@ namespace FullStack.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = (localDb)\\MSSQLLocalDB; Initial Catalog = FullStack");
+            
         }
 
     }
