@@ -11,8 +11,8 @@ using FullStack.API.Helpers;
 
 namespace FullStack.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -73,6 +73,7 @@ namespace FullStack.API.Controllers
             
         }
 
+        //Helper methods
         private User RegisterMap(RegisterUserModel user)
         {
             return new User

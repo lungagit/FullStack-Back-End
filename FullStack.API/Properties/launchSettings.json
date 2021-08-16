@@ -10,7 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "Project",
-      "launchUrl": "api/Invoices",
+      "launchUrl": "api/Users",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

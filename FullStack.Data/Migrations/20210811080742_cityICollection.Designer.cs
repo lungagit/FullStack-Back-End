@@ -3,14 +3,16 @@ using FullStack.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullStack.Data.Migrations
 {
     [DbContext(typeof(FullStackDbContext))]
-    partial class FullStackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210811080742_cityICollection")]
+    partial class cityICollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,12 +51,7 @@ namespace FullStack.Data.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Adverts");
                 });
@@ -77,68 +74,6 @@ namespace FullStack.Data.Migrations
                     b.HasIndex("ProvinceId");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Johannesburg",
-                            ProvinceId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Pretoria",
-                            ProvinceId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Bloemfontein",
-                            ProvinceId = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Welkom",
-                            ProvinceId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Nelspruit",
-                            ProvinceId = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "White River",
-                            ProvinceId = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Pietermaritzburg",
-                            ProvinceId = 4
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Durban",
-                            ProvinceId = 4
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Stellenbosch",
-                            ProvinceId = 5
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Cape Town",
-                            ProvinceId = 5
-                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.Province", b =>
@@ -154,33 +89,6 @@ namespace FullStack.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Gauteng"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Free State"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Mpumalanga"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "KwaZulu Natal"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Western Cape"
-                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.User", b =>
@@ -207,17 +115,6 @@ namespace FullStack.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FullStack.Data.Entities.Advert", b =>
-                {
-                    b.HasOne("FullStack.Data.Entities.User", "User")
-                        .WithMany("Adverts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FullStack.Data.Entities.City", b =>
                 {
                     b.HasOne("FullStack.Data.Entities.Province", "Province")
@@ -232,11 +129,6 @@ namespace FullStack.Data.Migrations
             modelBuilder.Entity("FullStack.Data.Entities.Province", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("FullStack.Data.Entities.User", b =>
-                {
-                    b.Navigation("Adverts");
                 });
 #pragma warning restore 612, 618
         }
