@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStack.Data.Migrations
 {
     [DbContext(typeof(FullStackDbContext))]
-    [Migration("20210815185812_insertProvincesAndCities")]
-    partial class insertProvincesAndCities
+    [Migration("20210818094644_linkTables")]
+    partial class linkTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,8 @@ namespace FullStack.Data.Migrations
                     b.Property<string>("AdvertDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -45,8 +45,8 @@ namespace FullStack.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
@@ -55,6 +55,8 @@ namespace FullStack.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
 
                     b.HasIndex("UserId");
 
@@ -211,11 +213,19 @@ namespace FullStack.Data.Migrations
 
             modelBuilder.Entity("FullStack.Data.Entities.Advert", b =>
                 {
+                    b.HasOne("FullStack.Data.Entities.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FullStack.Data.Entities.User", "User")
                         .WithMany("Adverts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Province");
 
                     b.Navigation("User");
                 });

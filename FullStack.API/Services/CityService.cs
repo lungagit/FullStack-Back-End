@@ -37,7 +37,7 @@ namespace FullStack.API.Services
             return new CityModel
             {
                 Id = city.Id,
-                Name = city.Name
+                Name = city.Name,
             };
 
         }

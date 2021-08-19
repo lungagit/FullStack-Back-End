@@ -16,7 +16,7 @@ namespace FullStack.API.Controllers
         {
             _provinceService = provinceService;
         }
-        [Authorize]
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -24,7 +24,6 @@ namespace FullStack.API.Controllers
             return Ok(provinces);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetProvince(int id)
         {

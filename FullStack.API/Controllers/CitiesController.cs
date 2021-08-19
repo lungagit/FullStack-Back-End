@@ -20,13 +20,14 @@ namespace FullStack.API.Controllers
         {
             _cityService = cityService;
         }
-        [Authorize]
+        
         [HttpGet]
         public ActionResult<IEnumerable> GetCities(int provinceId)
         {
             var citiesForProvince = _cityService.GetCities(provinceId);
             return Ok(citiesForProvince);
         }
+       
     }
 
 

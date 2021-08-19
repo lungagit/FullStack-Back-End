@@ -59,14 +59,14 @@ namespace FullStack.API.Services
             {
                 Id = advert.Id,
                 Headline = advert.Headline,
-                Province = advert.Province,
-                City = advert.City,
+                ProvinceId = advert.ProvinceId,
+                CityId = advert.CityId,
                 Status = advert.Status,
                 AdvertDetails = advert.AdvertDetails,
                 Price = advert.Price,
                 Deleted = advert.Deleted,
                 Hidden = advert.Hidden,
-                UserId = advert.UserId
+                UserId = advert.UserId,               
             };
         }
 

@@ -20,15 +20,15 @@ namespace FullStack.API.Controllers
         {
             _advertService = advertService;
         }
-        [Authorize]
+
         [HttpGet]
         public IActionResult GetAll(int userId)
         {
             var adverts = _advertService.GetAll(userId);
             return Ok(adverts);
         }
-        [Authorize]
-        [HttpGet("{advertId}", Name = "GetAdvertForUser")]
+
+        [HttpGet("{advertId}")]
         public IActionResult GetAdvert(int advertId)
         {
             var advert = _advertService.GetById(advertId);
@@ -79,32 +79,16 @@ namespace FullStack.API.Controllers
             {
                 Id = advert.Id,
                 Headline = advert.Headline,
-                Province = advert.Province,
-                City = advert.City,
+                ProvinceId = advert.ProvinceId,
+                CityId = advert.CityId,
                 Status = advert.Status,
                 AdvertDetails = advert.AdvertDetails,
                 Price = advert.Price,
                 Deleted = advert.Deleted,
                 Hidden = advert.Hidden,
-                UserId = advert.UserId
+                UserId = advert.UserId,
             };
         }
-
-        //private AdvertModel EntityMap(Advert advert)
-        //{
-        //    return new AdvertModel 
-        //    {
-        //        Id = advert.Id,
-        //        Headline = advert.Headline,
-        //        Province = advert.Province,
-        //        City = advert.City,
-        //        Status = advert.Status,
-        //        AdvertDetails = advert.AdvertDetails,
-        //        Price = advert.Price,
-        //        Deleted = advert.Deleted,
-        //        Hidden = advert.Hidden
-        //    };
-        //}
 
     }
 }

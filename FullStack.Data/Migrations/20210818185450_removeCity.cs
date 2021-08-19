@@ -2,42 +2,31 @@
 
 namespace FullStack.Data.Migrations
 {
-    public partial class update : Migration
+    public partial class removeCity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Adverts_Users_UserId",
+                name: "FK_Adverts_Cities_CityId",
                 table: "Adverts");
 
             migrationBuilder.DropIndex(
-                name: "IX_Adverts_UserId",
-                table: "Adverts");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "IX_Adverts_CityId",
                 table: "Adverts");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Adverts",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateIndex(
-                name: "IX_Adverts_UserId",
+                name: "IX_Adverts_CityId",
                 table: "Adverts",
-                column: "UserId");
+                column: "CityId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Adverts_Users_UserId",
+                name: "FK_Adverts_Cities_CityId",
                 table: "Adverts",
-                column: "UserId",
-                principalTable: "Users",
+                column: "CityId",
+                principalTable: "Cities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

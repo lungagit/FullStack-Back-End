@@ -23,7 +23,6 @@ namespace FullStack.Data
 
         List<Province> GetProvinces();
         Province GetProvince(int id);
-
         IEnumerable<City> GetCities(int provinceId);
 
 
@@ -85,8 +84,10 @@ namespace FullStack.Data
         public IEnumerable<Advert> GetAdverts(int userId) 
         {
             //throw new NotImplementedException();
-            //return _ctx.Cities.Where(p => p.ProvinceId == provinceId);
-            return _ctx.Adverts.Where(a => a.UserId == userId);
+
+            if (userId == 0) return _ctx.Adverts.ToList();
+            else return _ctx.Adverts.Where(a => a.UserId == userId);
+
         }
         public Advert GetAdvert(int id) 
         {
@@ -142,7 +143,10 @@ namespace FullStack.Data
        
         public IEnumerable<City> GetCities(int provinceId)
         {
-            return _ctx.Cities.Where(p => p.ProvinceId == provinceId);
+            //throw new NotImplementedException();
+            if(provinceId == 0) return _ctx.Cities.ToList();
+            else return _ctx.Cities.Where(p => p.ProvinceId == provinceId);
+
         }
     }
 }

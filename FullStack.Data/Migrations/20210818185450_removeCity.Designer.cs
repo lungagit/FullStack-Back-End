@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStack.Data.Migrations
 {
     [DbContext(typeof(FullStackDbContext))]
-    [Migration("20210813094850_userAdvertRelation")]
-    partial class userAdvertRelation
+    [Migration("20210818185450_removeCity")]
+    partial class removeCity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,8 @@ namespace FullStack.Data.Migrations
                     b.Property<string>("AdvertDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -45,8 +45,8 @@ namespace FullStack.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
@@ -79,6 +79,68 @@ namespace FullStack.Data.Migrations
                     b.HasIndex("ProvinceId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Johannesburg",
+                            ProvinceId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pretoria",
+                            ProvinceId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Bloemfontein",
+                            ProvinceId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Welkom",
+                            ProvinceId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Nelspruit",
+                            ProvinceId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "White River",
+                            ProvinceId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Pietermaritzburg",
+                            ProvinceId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Durban",
+                            ProvinceId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Stellenbosch",
+                            ProvinceId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Cape Town",
+                            ProvinceId = 5
+                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.Province", b =>
@@ -94,6 +156,33 @@ namespace FullStack.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gauteng"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Free State"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mpumalanga"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "KwaZulu Natal"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Western Cape"
+                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.User", b =>

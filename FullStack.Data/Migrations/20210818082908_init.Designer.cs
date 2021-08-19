@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStack.Data.Migrations
 {
     [DbContext(typeof(FullStackDbContext))]
-    [Migration("20210810211822_proviceAndCities")]
-    partial class proviceAndCities
+    [Migration("20210818082908_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,8 @@ namespace FullStack.Data.Migrations
                     b.Property<string>("AdvertDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -45,13 +45,18 @@ namespace FullStack.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Adverts");
                 });
@@ -74,6 +79,68 @@ namespace FullStack.Data.Migrations
                     b.HasIndex("ProvinceId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Johannesburg",
+                            ProvinceId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pretoria",
+                            ProvinceId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Bloemfontein",
+                            ProvinceId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Welkom",
+                            ProvinceId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Nelspruit",
+                            ProvinceId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "White River",
+                            ProvinceId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Pietermaritzburg",
+                            ProvinceId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Durban",
+                            ProvinceId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Stellenbosch",
+                            ProvinceId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Cape Town",
+                            ProvinceId = 5
+                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.Province", b =>
@@ -89,6 +156,33 @@ namespace FullStack.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gauteng"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Free State"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mpumalanga"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "KwaZulu Natal"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Western Cape"
+                        });
                 });
 
             modelBuilder.Entity("FullStack.Data.Entities.User", b =>
@@ -115,6 +209,17 @@ namespace FullStack.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FullStack.Data.Entities.Advert", b =>
+                {
+                    b.HasOne("FullStack.Data.Entities.User", "User")
+                        .WithMany("Adverts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FullStack.Data.Entities.City", b =>
                 {
                     b.HasOne("FullStack.Data.Entities.Province", "Province")
@@ -129,6 +234,11 @@ namespace FullStack.Data.Migrations
             modelBuilder.Entity("FullStack.Data.Entities.Province", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("FullStack.Data.Entities.User", b =>
+                {
+                    b.Navigation("Adverts");
                 });
 #pragma warning restore 612, 618
         }
