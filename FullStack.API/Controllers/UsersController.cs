@@ -39,7 +39,7 @@ namespace FullStack.API.Controllers
             var users = _userService.GetAll();
             return Ok(users);
         }
-       
+
         [HttpGet("unsecure")]
         public IActionResult GetAllUnsecure()
         {
@@ -49,7 +49,7 @@ namespace FullStack.API.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public IActionResult GetById(int id) 
+        public IActionResult GetById(int id)
         {
             var user = _userService.GetById(id);
             if (user == null) return NotFound();
@@ -59,6 +59,7 @@ namespace FullStack.API.Controllers
         [HttpPost("register")]
         public IActionResult CreateUser(RegisterUserModel user)
         {
+           
             try
             {
                 //Create user
@@ -70,7 +71,26 @@ namespace FullStack.API.Controllers
                 // return error message if there was an exception
                 return BadRequest(new { message = ex.Message });
             }
-            
+
+        }
+        [Authorize]
+        [HttpPut("{userId}")]
+        public IActionResult UpdateUser(int userId, [FromBody] UpdateUserModel user)
+        {
+            var us = UpdateMap(user);
+            us.Id = userId;
+
+            try
+            {
+                //Updated user
+                _userService.UpdateUser(UpdateMap(user));
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         //Helper methods
@@ -84,6 +104,19 @@ namespace FullStack.API.Controllers
                 Email = user.Email,
                 Password = user.Password
                 
+            };
+        }
+
+        private User UpdateMap(UpdateUserModel user)
+        {
+            return new User
+            {
+                Id = user.Id,
+                Forenames = user.Forenames,
+                Surname = user.Surname,
+                Email = user.Email,
+                Password = user.Password,
+                PhoneNumber = user.PhoneNumber
             };
         }
 

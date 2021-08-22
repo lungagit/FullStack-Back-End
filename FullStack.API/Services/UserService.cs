@@ -18,8 +18,8 @@ namespace FullStack.API.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<UserModel> GetAll();
         UserModel GetById(int id);
-
         RegisterUserModel CreateUser(User user);
+        UpdateUserModel UpdateUser(User user);
     }
 
     public class UserService : IUserService
@@ -73,7 +73,13 @@ namespace FullStack.API.Services
         public RegisterUserModel CreateUser(User user) 
         {
             var newUser = _repo.CreateUser(user);
-            return RigisterMap(newUser);
+            return RegisterMap(newUser);
+        }
+
+        public UpdateUserModel UpdateUser(User user)
+        {
+            var userEntity = _repo.UpdateUser(user);
+            return UpdateMap(userEntity);
         }
 
         // helper methods
@@ -84,11 +90,13 @@ namespace FullStack.API.Services
                 Id = user.Id,
                 Forenames = user.Forenames,
                 Surname = user.Surname,
-                Email = user.Email
+                Email = user.Email,
+                Password = user.Password,
+                PhoneNumber = user.PhoneNumber
             };
         }
 
-        private RegisterUserModel RigisterMap(User user)
+        private RegisterUserModel RegisterMap(User user)
         {
             return new RegisterUserModel
             {
@@ -97,6 +105,19 @@ namespace FullStack.API.Services
                 Surname = user.Surname,
                 Email = user.Email,
                 Password = user.Password
+            };
+        }
+
+        private UpdateUserModel UpdateMap(User user)
+        {
+            return new UpdateUserModel
+            {
+                Id = user.Id,
+                Forenames = user.Forenames,
+                Surname = user.Surname,
+                Email = user.Email,
+                Password = user.Password,
+                PhoneNumber = user.PhoneNumber
             };
         }
 

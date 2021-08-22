@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace FullStack.Data.Entities
+namespace FullStack.ViewModels
 {
-    public class User
+    public class UpdateUserModel
     {
         public int Id { get; set; }
         public string Forenames { get; set; }
@@ -13,6 +12,5 @@ namespace FullStack.Data.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
-        public List<Advert> Adverts { get; set; }
     }
 }
