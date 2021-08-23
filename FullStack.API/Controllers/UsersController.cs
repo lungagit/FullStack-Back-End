@@ -47,7 +47,6 @@ namespace FullStack.API.Controllers
             return Ok(users);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
